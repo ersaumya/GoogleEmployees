@@ -13,7 +13,8 @@ namespace GoogleEmployees.ContextFactory
                 .AddJsonFile("appsettings.json")
                 .Build();
             var builder = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseSqlServer(configuration.GetConnectionString("sqlConnection")); 
+                .UseSqlServer(configuration.GetConnectionString("sqlConnection"),
+                b => b.MigrationsAssembly("GoogleEmployees"));
             return new RepositoryContext(builder.Options); 
         }
     }
