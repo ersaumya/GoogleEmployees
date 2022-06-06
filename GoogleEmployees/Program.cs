@@ -1,3 +1,4 @@
+using Contracts;
 using GoogleEmployees.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
@@ -21,10 +22,16 @@ builder.Services.AddControllers().AddApplicationPart(typeof(GoogleEmployees.Pres
 
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-    app.UseDeveloperExceptionPage();
-else
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigureExceptionHandler(logger);
+if (app.Environment.IsProduction())
     app.UseHsts();
+
+
+//if (app.Environment.IsDevelopment())
+//    app.UseDeveloperExceptionPage();
+//else
+//    app.UseHsts();
 
 // Configure the HTTP request pipeline.
 
