@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Contracts", "Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{4C71E8BE-D3C4-4905-A074-130A697D1832}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleEmployees.Presentation", "GoogleEmployees.Presentation\GoogleEmployees.Presentation.csproj", "{1DF82245-C643-48A3-BEC3-642ABF51C97D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4C71E8BE-D3C4-4905-A074-130A697D1832}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C71E8BE-D3C4-4905-A074-130A697D1832}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C71E8BE-D3C4-4905-A074-130A697D1832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF82245-C643-48A3-BEC3-642ABF51C97D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF82245-C643-48A3-BEC3-642ABF51C97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF82245-C643-48A3-BEC3-642ABF51C97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF82245-C643-48A3-BEC3-642ABF51C97D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
