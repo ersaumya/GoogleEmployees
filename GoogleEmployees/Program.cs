@@ -19,6 +19,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers(config =>
 {
     config.RespectBrowserAcceptHeader = true;
+    config.ReturnHttpNotAcceptable = true;  // it should return the 406 Not Acceptable status code.
+
 }).AddXmlDataContractSerializerFormatters();
 
 
