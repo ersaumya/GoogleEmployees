@@ -1,6 +1,7 @@
 using Contracts;
 using GoogleEmployees.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,16 +17,19 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 builder.Services.AddControllers(config =>
 {
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;  // it should return the 406 Not Acceptable status code.
 
-}).AddXmlDataContractSerializerFormatters().AddCustomCSVFormatter();
-
-
-
-builder.Services.AddControllers().AddApplicationPart(typeof(GoogleEmployees.Presentation.AssemblyReference).Assembly);
+}).AddXmlDataContractSerializerFormatters()
+  .AddCustomCSVFormatter()
+  .AddApplicationPart(typeof(GoogleEmployees.Presentation.AssemblyReference).Assembly);
 
 
 
