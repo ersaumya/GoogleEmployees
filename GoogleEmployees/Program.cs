@@ -21,7 +21,8 @@ builder.Services.AddControllers(config =>
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;  // it should return the 406 Not Acceptable status code.
 
-}).AddXmlDataContractSerializerFormatters();
+}).AddXmlDataContractSerializerFormatters().AddCustomCSVFormatter();
+
 
 
 builder.Services.AddControllers().AddApplicationPart(typeof(GoogleEmployees.Presentation.AssemblyReference).Assembly);
