@@ -25,7 +25,11 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 });
 
 //workaround for add AddNewtonsoftJson without replacing System.Text.Json for json patch
-NewtonsoftJsonPatchInputFormatter GetJsonPatchInputFormatter() => new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson().Services.BuildServiceProvider().GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters.OfType<NewtonsoftJsonPatchInputFormatter>().First();
+NewtonsoftJsonPatchInputFormatter GetJsonPatchInputFormatter() => 
+    new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
+    .Services.BuildServiceProvider()
+    .GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters
+    .OfType<NewtonsoftJsonPatchInputFormatter>().First();
 
 builder.Services.AddControllers(config =>
 {
