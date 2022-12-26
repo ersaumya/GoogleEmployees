@@ -8,9 +8,9 @@ namespace Shared.DataTransferObjects
 {
     public record EmployeeForUpdateDto
     {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public string Position { get; set; }
+        public string Name { get; init; }
+        public int Age { get; init; }
+        public string Position { get; init; }
     }
     
     
