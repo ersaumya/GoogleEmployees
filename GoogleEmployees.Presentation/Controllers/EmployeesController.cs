@@ -54,6 +54,8 @@ namespace GoogleEmployees.Presentation.Controllers
         {
             if (employee is null)
                 return BadRequest("EmployeeForUpdateDto is null");
+            if (!ModelState.IsValid) 
+                return UnprocessableEntity(ModelState);
             _service.EmployeeService.UpdateEmployeeForCompany(companyId, id, employee, compTrackChanges: false, empTrackChanges: true);
             return NoContent();
         }
