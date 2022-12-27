@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using NLog;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
+using GoogleEmployees.Presentation.ActionFilter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,7 @@ builder.Services.AddControllers(config =>
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;  // it should return the 406 Not Acceptable status code.
     config.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
+    builder.Services.AddScoped<ValidationFilterAttribute>();
 }).AddXmlDataContractSerializerFormatters()
   .AddCustomCSVFormatter()
   .AddApplicationPart(typeof(GoogleEmployees.Presentation.AssemblyReference).Assembly);
