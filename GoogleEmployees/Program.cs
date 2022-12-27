@@ -25,19 +25,14 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     options.SuppressModelStateInvalidFilter = true;
 });
 
-//workaround for add AddNewtonsoftJson without replacing System.Text.Json for json patch
-NewtonsoftJsonPatchInputFormatter GetJsonPatchInputFormatter() => 
-    new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
-    .Services.BuildServiceProvider()
-    .GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters
-    .OfType<NewtonsoftJsonPatchInputFormatter>().First();
+builder.Services.AddScoped<ValidationFilterAttribute>();
 
 builder.Services.AddControllers(config =>
 {
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;  // it should return the 406 Not Acceptable status code.
     config.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
-    builder.Services.AddScoped<ValidationFilterAttribute>();
+    
 }).AddXmlDataContractSerializerFormatters()
   .AddCustomCSVFormatter()
   .AddApplicationPart(typeof(GoogleEmployees.Presentation.AssemblyReference).Assembly);
@@ -72,3 +67,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//workaround for add AddNewtonsoftJson without replacing System.Text.Json for json patch
+NewtonsoftJsonPatchInputFormatter GetJsonPatchInputFormatter() =>
+    new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
+    .Services.BuildServiceProvider()
+    .GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters
+    .OfType<NewtonsoftJsonPatchInputFormatter>().First();

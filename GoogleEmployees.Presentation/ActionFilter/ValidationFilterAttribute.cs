@@ -10,6 +10,9 @@ namespace GoogleEmployees.Presentation.ActionFilter
 {
     public class ValidationFilterAttribute : IActionFilter
     {
+        public ValidationFilterAttribute()
+        {
+        }
         public void OnActionExecuting(ActionExecutingContext context)
         {
             var action = context.RouteData.Values["action"]; 
@@ -27,7 +30,7 @@ namespace GoogleEmployees.Presentation.ActionFilter
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

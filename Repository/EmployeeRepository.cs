@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,12 @@ namespace Repository
         public EmployeeRepository(RepositoryContext repositoryContext): base(repositoryContext)
         {
         }
-        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId, bool trackChanges) =>
+        public async Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId, 
+            EmployeeParameters employeeParameters, bool trackChanges) =>
         await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges)
         .OrderBy(e => e.Name)
+        .Skip((employeeParameters.PageNumber - 1) * employeeParameters.PageSize)
+        .Take(employeeParameters.PageSize)
         .ToListAsync();
 
         public async Task<Employee> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges) =>
