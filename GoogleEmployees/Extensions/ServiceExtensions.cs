@@ -14,7 +14,10 @@ namespace GoogleEmployees.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
-                 builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                 builder.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .WithExposedHeaders("X-Pagination"));//to enable the client application to read the new X-Pagination header that we’ve added in our action
 
             });
         }

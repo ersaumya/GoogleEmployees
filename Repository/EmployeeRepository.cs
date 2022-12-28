@@ -25,6 +25,17 @@ namespace Repository
             return PagedList<Employee>.ToPagedList(employees, employeeParameters.PageNumber, employeeParameters.PageSize);
         }
 
+        //Improve performance if data are huge or else use above method
+
+        //public async Task<PagedList<Employee>> GetEmployeesAsync(Guid companyId, EmployeeParameters employeeParameters, bool trackChanges) 
+        //{ 
+        //    var employees = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges)
+        //        .OrderBy(e => e.Name)
+        //        .Skip((employeeParameters.PageNumber - 1) * employeeParameters.PageSize)
+        //        .Take(employeeParameters.PageSize).ToListAsync();
+        //    var count = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).CountAsync();
+        //    return new PagedList<Employee>(employees, count, employeeParameters.PageNumber, employeeParameters.PageSize);
+        //}
         public async Task<Employee> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges) =>
             await FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(id), trackChanges)
             .SingleOrDefaultAsync();
