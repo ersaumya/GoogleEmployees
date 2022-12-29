@@ -32,12 +32,14 @@ builder.Services.AddControllers(config =>
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;  // it should return the 406 Not Acceptable status code.
     config.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
-    
+    config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { Duration = 120 });
+
 }).AddXmlDataContractSerializerFormatters()
   .AddCustomCSVFormatter()
   .AddApplicationPart(typeof(GoogleEmployees.Presentation.AssemblyReference).Assembly);
 
 builder.Services.ConfigureVersioning();
+builder.Services.ConfigureResponseCaching();
 
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();
@@ -60,7 +62,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.All
 });
 app.UseCors("CorsPolicy");
-
+app.UseResponseCaching();
 
 app.UseAuthorization();
 
