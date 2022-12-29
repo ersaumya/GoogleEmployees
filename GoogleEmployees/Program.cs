@@ -37,7 +37,7 @@ builder.Services.AddControllers(config =>
   .AddCustomCSVFormatter()
   .AddApplicationPart(typeof(GoogleEmployees.Presentation.AssemblyReference).Assembly);
 
-
+builder.Services.ConfigureVersioning();
 
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();
