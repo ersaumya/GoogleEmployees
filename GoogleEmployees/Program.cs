@@ -6,6 +6,7 @@ using NLog;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 using GoogleEmployees.Presentation.ActionFilter;
+using AspNetCoreRateLimit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,10 @@ builder.Services.ConfigureVersioning();
 builder.Services.ConfigureResponseCaching();
 builder.Services.ConfigureHttpCacheHeaders();
 
+builder.Services.AddMemoryCache();//For rate limiting and throttling
+builder.Services.ConfigureRateLimitingOptions();
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);
@@ -62,6 +67,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.All
 });
+app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
