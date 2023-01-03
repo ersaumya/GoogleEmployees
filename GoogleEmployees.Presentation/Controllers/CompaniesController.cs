@@ -23,7 +23,7 @@ namespace GoogleEmployees.Presentation.Controllers
         public CompaniesController(IServiceManager service) => _service = service;
 
         [HttpGet(Name = "GetCompanies")]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetCompanies()
         {
             //throw new Exception("Exception");
