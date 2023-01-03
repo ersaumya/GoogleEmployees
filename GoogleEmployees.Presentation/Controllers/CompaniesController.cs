@@ -1,6 +1,7 @@
 ﻿using GoogleEmployees.Presentation.ActionFilter;
 using GoogleEmployees.Presentation.ModelBinders;
 using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -22,6 +23,7 @@ namespace GoogleEmployees.Presentation.Controllers
         public CompaniesController(IServiceManager service) => _service = service;
 
         [HttpGet(Name = "GetCompanies")]
+        [Authorize]
         public async Task<IActionResult> GetCompanies()
         {
             //throw new Exception("Exception");
