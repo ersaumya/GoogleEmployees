@@ -176,7 +176,15 @@ namespace GoogleEmployees.Extensions
         { 
             services.AddSwaggerGen(s => 
             { 
-                s.SwaggerDoc("v1", new OpenApiInfo { Title = "GoogleEmployee API", Version = "v1" });
+                s.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "GoogleEmployee API",
+                    Version = "v1",
+                    Description = "GoogleEmployee API by Saumya",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact { Name = "Saumya Rout", Email = "ErsaumyaRout@gmail.com", Url = new Uri("https://github.com/ersaumya"), },
+                    License = new OpenApiLicense { Name = "GoogleEmployee API LICX", Url = new Uri("https://example.com/license"), }
+
+                });
                 s.SwaggerDoc("v2", new OpenApiInfo { Title = "GoogleEmployee API", Version = "v2" });
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
