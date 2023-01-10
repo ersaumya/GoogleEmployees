@@ -51,6 +51,8 @@ builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
 
+builder.Services.ConfigureSwagger();
+
 var app = builder.Build();
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);
@@ -73,10 +75,19 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 app.UseIpRateLimiting();
 app.UseCors("CorsPolicy");
+
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI(s =>
+{
+    s.SwaggerEndpoint("/swagger/v1/swagger.json", "GoogleEmployee API v1");
+    s.SwaggerEndpoint("/swagger/v2/swagger.json", "GoogleEmployee API v2");
+});
 
 app.MapControllers();
 
